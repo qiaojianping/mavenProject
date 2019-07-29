@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.javen.model.KeyBean;
 import com.javen.model.User;
 import com.javen.service.IUserService;
 
@@ -30,6 +31,7 @@ public class UserController {
 	@Resource
 	private IUserService userService;
 	
+	//https://www.cnblogs.com/zyw-205520/p/4771253.html
 	
 	// /user/test?id=1
 	@RequestMapping(value="/test",method=RequestMethod.GET)
@@ -94,12 +96,34 @@ public class UserController {
     }
     
     // /user/jsontype/{id}
-    @RequestMapping(value="/jsontype/{id}",method=RequestMethod.GET)  
-    public ResponseEntity<User>  getUserInJson2(@PathVariable String id,Map<String, Object> model){  
+    @RequestMapping(value="jsontype/{id}",method=RequestMethod.GET)
+    public ResponseEntity<User> getUserInJson2(@PathVariable String id,Map<String, Object> model){
         int userId = Integer.parseInt(id);  
         System.out.println("userId:"+userId);
-        User user = this.userService.getUserById(userId);  
+        User user = this.userService.getUserById(userId);
         log.info(user.toString());
-        return new ResponseEntity<User>(user,HttpStatus.OK);  
+        return new ResponseEntity<User>(user,HttpStatus.OK);
+    }
+   
+    // /user/othersTest/{id}
+    @RequestMapping(value="/othersTest/{id}",method=RequestMethod.GET)  
+    public ResponseEntity<KeyBean>  getUserInJson3(@PathVariable String id,Map<String, Object> model){  
+        int userId = Integer.parseInt(id);  
+        System.out.println("userId:"+userId);
+        KeyBean user = new KeyBean();
+        user.data_attestation_file = "http://192.168.1.111/getAttestationFile/WV1376391152";
+        user.data_hdcp_v14_file = "";
+        user.data_hdcp_v22_file = "";
+        user.data_customer_id = "11111";
+        user.data_imei = "QG23K3C5GXBE";
+        user.data_mac = "80:0B:52:06:FF:F9";
+        user.data_model_code = "S111";
+        user.data_playready_private_file = "";
+        user.data_playready_public_file = "";
+        user.data_widevine_file = "";
+        user.remark = "获取成功！";
+        user.result = 1;
+        log.info(user.toString());
+        return new ResponseEntity<KeyBean>(user,HttpStatus.OK);  
     }
 }
