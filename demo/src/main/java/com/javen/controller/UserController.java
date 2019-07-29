@@ -1,10 +1,13 @@
 package com.javen.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.javen.model.KeyBean;
 import com.javen.model.User;
@@ -32,6 +36,7 @@ public class UserController {
 	private IUserService userService;
 	
 	//https://www.cnblogs.com/zyw-205520/p/4771253.html
+	//http://192.168.31.197/user/othersTest/1
 	
 	// /user/test?id=1
 	@RequestMapping(value="/test",method=RequestMethod.GET)
@@ -125,5 +130,20 @@ public class UserController {
         user.result = 1;
         log.info(user.toString());
         return new ResponseEntity<KeyBean>(user,HttpStatus.OK);  
+    }
+    
+    //文件上传
+    @RequestMapping(value="/upload")
+    public String showUploadPage() {
+    	return "upload";
+    }
+    
+    @RequestMapping(value="/doUpload",method=RequestMethod.POST)
+    public String doUploadFile(@RequestParam("file")MultipartFile file) throws IOException{
+        if (!file.isEmpty()) {
+            log.info("Process file:{}",file.getOriginalFilename());
+        }
+        FileUtils.copyInputStreamToFile(file.getInputStream(), new File("D:\\",System.currentTimeMillis()+file.getOriginalFilename()));
+        return "index";
     }
 }
