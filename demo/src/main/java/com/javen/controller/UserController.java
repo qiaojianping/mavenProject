@@ -37,6 +37,11 @@ public class UserController {
 	
 	//https://www.cnblogs.com/zyw-205520/p/4771253.html
 	//http://192.168.31.197/user/othersTest/1
+	/**
+	 * 数据库时区不对，导致连接不上数据库问题
+	 * 查看当前时区：select curtime();show variables like "%time_zone%";
+	 * 修改时区：set global time_zone = '+8:00';set time_zone = '+8:00';flush privileges;
+	 * */
 	
 	// /user/test?id=1
 	@RequestMapping(value="/test",method=RequestMethod.GET)
