@@ -36,7 +36,8 @@ public class UserController {
 	private IUserService userService;
 	
 	//https://www.cnblogs.com/zyw-205520/p/4771253.html
-	//http://192.168.31.197/user/othersTest/1
+	//http://192.168.31.197/user/othersTest/1    Junit部署
+	//http://localhost:8080/demo/user/othersTest/1   Tomcat部署
 	/**
 	 * 数据库时区不对，导致连接不上数据库问题
 	 * 查看当前时区：select curtime();show variables like "%time_zone%";
@@ -121,11 +122,11 @@ public class UserController {
         int userId = Integer.parseInt(id);  
         System.out.println("userId:"+userId);
         KeyBean user = new KeyBean();
-        user.data_attestation_file = "http://192.168.1.111/getAttestationFile/WV1376391152";
-        user.data_hdcp_v14_file = "";
-        user.data_hdcp_v22_file = "";
+        user.data_attestation_file = "";
+        user.data_hdcp_v14_file = "http://192.168.31.197:8080/demo/picPath/hdcp_key.bin";
+        user.data_hdcp_v22_file = "http://192.168.31.197:8080/demo/picPath/hdcp2_key.bin";
         user.data_customer_id = "11111";
-        user.data_imei = "QG23K3C5GXBE";
+        user.data_imei = "GKB7KF559XW7";
         user.data_mac = "80:0B:52:06:FF:F9";
         user.data_model_code = "S111";
         user.data_playready_private_file = "";
