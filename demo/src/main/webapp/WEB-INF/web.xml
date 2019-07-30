@@ -43,11 +43,19 @@
         <load-on-startup>1</load-on-startup>  
         <async-supported>true</async-supported>  
     </servlet>  
-   <!--   <servlet-mapping>  
+     <servlet-mapping>  
         <servlet-name>SpringMVC</servlet-name>  
-        // 此处可以可以配置成*.do，对应struts的后缀习惯 
-        <url-pattern>/</url-pattern>  //配置url-pattern为“/”，会过滤所有资源，导致静态资源文件无法访问
-    </servlet-mapping>  -->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping> 
+    <servlet-mapping>
+          <servlet-name>default</servlet-name>
+          <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+          <servlet-name>default</servlet-name>
+          <url-pattern>*.bin</url-pattern>
+    </servlet-mapping>
+    <!--上面url-pattern 此处可以可以配置成*.do，对应struts的后缀习惯   PS:配置url-pattern为“/”，会过滤所有资源，导致静态资源文件无法访问   -->
     <welcome-file-list>  
         <welcome-file>/index.jsp</welcome-file>  
     </welcome-file-list>  
