@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javen.model.KeyBean;
+import com.javen.model.Sorgs;
 import com.javen.model.User;
 import com.javen.service.IUserService;
 
@@ -152,4 +153,22 @@ public class UserController {
         FileUtils.copyInputStreamToFile(file.getInputStream(), new File("D:\\",System.currentTimeMillis()+file.getOriginalFilename()));
         return "index";
     }
+    
+	// /user/sorgs?id=1
+	@RequestMapping(value="/sorgs")
+	public ResponseEntity<Sorgs> sorgs(HttpServletRequest request) {
+		String id =  request.getParameter("id");
+		if(id.equals("1")) {
+			System.out.println("id:"+id);
+	        Sorgs response =new Sorgs();
+	        response.code = 500;
+	        Sorgs.DataBean dataBean = new Sorgs.DataBean();
+	        dataBean.name = "sorgs";
+	        response.data = dataBean;
+	        response.msg = "success";
+	        return new ResponseEntity<Sorgs>(response,HttpStatus.OK);
+		}else {
+			return null;
+		}
+	}
 }
